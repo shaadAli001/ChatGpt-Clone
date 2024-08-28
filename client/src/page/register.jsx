@@ -19,28 +19,20 @@ const Register = () => {
   //media
   const isNotMobile = useMediaQuery("(min-width: 1000px)");
   // states
-  const [username, setUsername] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [error, setError] = useState();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   //register ctrl
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/v1/auth/register", {
-        username,
-        email,
-        password,
-      });
-
+      await axios.post("/api/v1/auth/register", { username, email, password });
       toast.success("User Register Successfully");
       navigate("/login");
     } catch (err) {
-      console.log(error);
-      if (err.response.data.error) {
-        setError(err.response.data.error);
-      } else if (err.message) {
+      if (err) {
         setError(err.message);
       }
       setTimeout(() => {
